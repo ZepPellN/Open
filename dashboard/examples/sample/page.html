@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>订阅经营观察 · 合成样例</title><style>{{CSS}}</style></head>
+<body>
+<main>
+  <header class="page-header">
+    <div><h1>把数据，变成可解释的判断。</h1><p>合成样例 · 不代表真实业务表现</p></div>
+    <div class="controls"><button type="button" data-source-mode aria-pressed="false">查看数字来源</button><button type="button" data-theme-toggle aria-pressed="false">切换主题</button></div>
+  </header>
+  <section class="report-heading"><h2>订阅经营观察</h2><select aria-label="渠道筛选" data-filter-source="sample" data-filter-field="channel"><option value="">全部渠道</option></select></section>
+  <section class="kpis" aria-label="关键指标">
+    <div class="kpi"><p>收入</p><output data-calc="revenue"></output></div>
+    <div class="kpi"><p>付费订单</p><output data-calc="orders"></output></div>
+    <div class="kpi"><p>平均客单价</p><output data-calc="aov"></output></div>
+  </section>
+  <div class="charts">
+    <section><h3>收入走势</h3><div class="chart" data-chart="trend" aria-label="收入走势"></div></section>
+    <section><h3>渠道贡献</h3><div class="chart" data-chart="channels" aria-label="渠道贡献"></div></section>
+  </div>
+  <aside class="recommendation"><h2>先看口径，再看变化。</h2><p>点击任意数字，查看源表、计算方式与参与行。</p></aside>
+  <section class="table-section"><h3>数据明细</h3><div data-chart="details"></div></section>
+  <footer>Sources · sample.csv · 合成数据</footer>
+</main>
+<script id="dashboard-data" type="application/json">{{DATA}}</script><script>{{JS}}</script>
+</body></html>

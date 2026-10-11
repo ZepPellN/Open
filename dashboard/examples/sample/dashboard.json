@@ -1,0 +1,18 @@
+{
+  "sources": {"sample": {"file": "sample.csv", "label": "订阅经营合成样例", "kind": "synthetic", "grain": "月份 × 渠道", "limitations": "演示数据，不代表真实经营表现；收入单位人民币，订单单位笔；无退款、税费或去重用户数据。"}},
+  "calcs": {
+    "revenue": {"source": "sample", "field": "revenue", "op": "sum", "label": "收入", "format": "currency"},
+    "orders": {"source": "sample", "field": "orders", "op": "sum", "label": "付费订单"},
+    "aov": {"op": "ratio", "numerator": "revenue", "denominator": "orders", "label": "平均客单价", "format": "currency", "digits": 2},
+    "visits": {"source": "sample", "field": "visits", "op": "sum", "label": "访问次数"},
+    "trials": {"source": "sample", "field": "trials", "op": "sum", "label": "试用次数"}
+  },
+  "charts": {
+    "trend": {"type": "line", "source": "sample", "group": "month", "field": "revenue", "op": "sum", "label": "收入走势"},
+    "channels": {"type": "bar", "source": "sample", "group": "channel", "field": "revenue", "op": "sum", "label": "渠道贡献"},
+    "stack": {"type": "stack", "source": "sample", "group": "month", "series": "channel", "field": "revenue", "op": "sum", "label": "月度渠道收入"},
+    "list": {"type": "mini-list", "source": "sample", "group": "channel", "field": "orders", "op": "sum", "label": "渠道订单"},
+    "funnel": {"type": "funnel", "label": "演示漏斗", "items": [{"label": "访问", "calc": "visits"}, {"label": "试用", "calc": "trials"}, {"label": "付费", "calc": "orders"}]},
+    "details": {"type": "table", "source": "sample", "columns": [{"field": "month", "label": "月份"}, {"field": "channel", "label": "渠道"}, {"field": "revenue", "label": "收入", "numeric": true}, {"field": "orders", "label": "订单", "numeric": true}]}
+  }
+}

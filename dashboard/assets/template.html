@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本地数据看板</title>
+  <style>{{CSS}}</style>
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <div><h1>把数据，变成可解释的判断。</h1><p>先分析数据，再写结论。每个数字都能回到源表。</p></div>
+      <div class="controls"><button type="button" data-source-mode aria-pressed="false">查看数字来源</button><button type="button" data-theme-toggle aria-pressed="false">切换主题</button></div>
+    </header>
+    <section class="report-heading"><h2>数据观察</h2></section>
+    <!-- Replace this report body. Bind numbers with data-calc and charts with data-chart. -->
+    <footer>Sources · 请声明输入文件、统计口径和数据限制。</footer>
+  </main>
+  <script id="dashboard-data" type="application/json">{{DATA}}</script>
+  <script>{{JS}}</script>
+</body>
+</html>

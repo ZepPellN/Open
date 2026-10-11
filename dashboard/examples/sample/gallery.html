@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>图表组件 · 合成样例</title><style>{{CSS}}</style></head>
+<body><main>
+<header class="page-header"><div><h1>图表组件。</h1><p>合成数据 · 用来检查运行时，而非业务结论</p></div><div class="controls"><button type="button" data-source-mode>查看数字来源</button><button type="button" data-theme-toggle>切换主题</button></div></header>
+<section class="report-heading"><h2>全部组件</h2><select aria-label="渠道筛选" data-filter-source="sample" data-filter-field="channel"><option>全部渠道</option></select></section>
+<p>第一条 CSV 记录的收入：<span data-source="sample" data-field="revenue" data-record="2" data-format="currency" data-label="第一条记录收入"></span>（固定记录；筛选排除该记录时显示暂无数据）</p>
+<div class="charts"><section><h3>折线</h3><div class="chart" data-chart="trend"></div></section><section><h3>条形</h3><div class="chart" data-chart="channels"></div></section></div>
+<div class="gallery"><div class="charts"><section><h3>堆叠</h3><div class="chart" data-chart="stack"></div></section><section><h3>Mini list</h3><div class="chart" data-chart="list"></div></section></div></div>
+<div class="gallery"><div class="charts"><section><h3>漏斗</h3><div class="chart" data-chart="funnel"></div></section><section><h3>说明</h3><p>同一合成队列中的访问、试用和付费计数；只有口径一致才可放入漏斗，不能将无关事件拼接。</p></section></div></div>
+<section class="table-section gallery"><h3>可排序表格</h3><div data-chart="details"></div></section><footer>Sources · sample.csv · 合成数据</footer>
+</main><script id="dashboard-data" type="application/json">{{DATA}}</script><script>{{JS}}</script></body></html>

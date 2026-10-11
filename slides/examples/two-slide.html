@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Open Slides — two-slide export smoke test</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, sans-serif; background: #e9edf3; color: #14243b; }
+  .slide { display: none; width: 1280px; height: 720px; padding: 86px 100px; background: #fbfaf7; }
+  .slide.active { display: flex; flex-direction: column; justify-content: center; gap: 24px; }
+  h1 { margin: 0; max-width: 950px; font-size: 64px; line-height: 1.08; }
+  p { margin: 0; font-size: 30px; line-height: 1.4; color: #52617a; }
+  nav { position: fixed; right: 24px; bottom: 20px; display: flex; gap: 12px; }
+  button { border: 0; border-radius: 999px; background: #183a66; color: white; padding: 12px 20px; font-size: 16px; }
+</style>
+<main>
+  <section class="slide active"><p>OPEN SLIDES · 01</p><h1>Ideas deserve room to breathe.</h1><p>A minimal deck used to verify the local PowerPoint export.</p></section>
+  <section class="slide"><p>OPEN SLIDES · 02</p><h1>Readable HTML in, editable slides out.</h1><p>This example contains two known slides and no remote assets.</p></section>
+</main>
+<nav><button onclick="goToSlide(0)">Previous</button><button onclick="goToSlide(1)">Next</button></nav>
+<script>
+  function goToSlide(index) {
+    document.querySelectorAll('.slide').forEach((slide, i) => slide.classList.toggle('active', i === index));
+  }
+</script>
+</html>

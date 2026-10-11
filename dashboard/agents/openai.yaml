@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Dashboard"
+  short_description: "把本地数据做成可交互、每个数字能追溯来源的离线 HTML 看板"
+  default_prompt: "用 $open-dashboard 分析这份数据，做一个每个数字都可追溯来源的本地交互看板。"

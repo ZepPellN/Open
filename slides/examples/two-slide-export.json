@@ -1,0 +1,9 @@
+{
+  "width": 1280,
+  "height": 720,
+  "slides": [
+    { "showJs": "goToSlide(0)", "selector": ".slide.active" },
+    { "showJs": "goToSlide(1)", "selector": ".slide.active" }
+  ],
+  "filename": "open-slides-smoke"
+}
