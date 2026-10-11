@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 from zipfile import ZipFile
 
-from scripts.package_projects import ROOT, package_projects
+from scripts.package_projects import ROOT, package_projects, should_include
 
 
 class PackageProjectsTest(unittest.TestCase):
@@ -39,6 +39,13 @@ class PackageProjectsTest(unittest.TestCase):
                 names = [name.lower() for name in zipped.namelist()]
                 self.assertIn("dashboard/examples/sample/sample.csv", names)
                 self.assertFalse(any("examples/baocut/" in name for name in names))
+
+    def test_packager_omits_local_junk_and_secrets_but_keeps_templates(self):
+        for path in (".DS_Store", "reports/debug.log", ".env", ".env.local",
+                     "assets/__pycache__/dash.pyc", "node_modules/pkg/index.js"):
+            with self.subTest(path=path):
+                self.assertFalse(should_include(Path(path)))
+        self.assertTrue(should_include(Path(".env.example")))
 
 
 if __name__ == "__main__":

@@ -8,6 +8,20 @@ from zipfile import ZIP_DEFLATED, ZipFile
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ("slides", "dashboard", "design")
 EXCLUDED_DIRS = {".git", ".dev", "__pycache__", ".pytest_cache", "node_modules", "dist", "coverage"}
+ENV_TEMPLATES = {".env.example", ".env.sample", ".env.template"}
+
+
+def should_include(relative_path: Path) -> bool:
+    relative_path = Path(relative_path)
+    if EXCLUDED_DIRS.intersection(relative_path.parts):
+        return False
+    name = relative_path.name
+    lowered = name.lower()
+    if name == ".DS_Store" or lowered.endswith((".log", ".pyc", ".pem", ".key")):
+        return False
+    if (name == ".env" or name.startswith(".env.")) and name not in ENV_TEMPLATES:
+        return False
+    return True
 
 
 def package_projects(output_dir: Path) -> list[Path]:
@@ -21,7 +35,7 @@ def package_projects(output_dir: Path) -> list[Path]:
         archive = output_dir / f"open-{project}.zip"
         with ZipFile(archive, "w", ZIP_DEFLATED) as zipped:
             for path in sorted(source.rglob("*")):
-                if not path.is_file() or EXCLUDED_DIRS.intersection(path.relative_to(source).parts):
+                if not path.is_file() or not should_include(path.relative_to(source)):
                     continue
                 zipped.write(path, (Path(project) / path.relative_to(source)).as_posix())
         archives.append(archive)
