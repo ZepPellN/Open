@@ -8,3 +8,5 @@
 - Accept: copied exporter builds and tests; a synthetic two-slide deck
   produces a valid two-slide PPTX; contents contain no BaoCut implementation
   or BaoCut Community License; README states feature boundaries.
+- Evidence: `docs/verification.md` records the actual export command, result,
+  and two-slide OOXML check.

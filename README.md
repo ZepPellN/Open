@@ -17,6 +17,9 @@ To make three separate downloadable ZIPs, run `python3 scripts/package_projects.
 The archives appear in `dist/`; generated archives and dependencies are excluded
 from future packages.
 
+See [the verification log](docs/verification.md) for the passing test suites and
+the reproducible two-slide PPTX export check.
+
 This repository is not affiliated with Anthropic, BaoCut, or the upstream
 authors of the included MIT-licensed design materials.
 
