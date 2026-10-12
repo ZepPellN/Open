@@ -24,7 +24,9 @@ def demo():
 
 
 def test():
-    command("npm", "test")
+    # Expand paths here so older supported Node versions need no CLI glob support.
+    test_files = sorted((ROOT / "skills/baoyu-design/agents/tests").glob("*.test.mjs"))
+    command("node", "--test", *(str(path.relative_to(ROOT)) for path in test_files))
     command(sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py")
 
 
