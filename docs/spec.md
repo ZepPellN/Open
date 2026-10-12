@@ -1,50 +1,24 @@
-# Open suite — implementation spec
+# Open delivery scope
 
-## Goal
+One GitHub-ready repository, three standalone directories: slides, dashboard,
+design. Each includes source, README, AGENTS.md, SKILL.md, installer, example,
+test entry point and applicable licenses. A copied Skill directory must not
+depend on the parent repository or Jean's original checkout.
 
-Package the existing Slides, Dashboard, and Design work as one downloadable,
-local-first project named **Open**, with three independently usable projects:
-**Open Slides**, **Open Dashboard**, and **Open Design**.
+- Slides normal use runs in the user's existing browser; editable PPTX export
+  is a button on the page, not a mandatory headless-browser setup.
+- Retain the optional upstream CLI as an advanced path, clearly separated.
+- Dashboard is our independent implementation inspired by the post's workflow.
+- Design reuses the complete MIT upstream source.
+- Existing source directories outside Open remain unchanged.
+- Retain upstream notices; exclude BaoCut implementation rather than relicense.
+- Distinguish REA analysis of a shared shell from full editor reconstruction.
+- Prepare GitHub publishing and CI; do not claim remote publication until a
+  repository URL and successful push have been verified.
 
-## Decisions
+Share and install directly from the Git repository; no archive deliverables.
 
-- Use one Git repository with three project directories; do not publish or push
-  it as part of this task.
-- Preserve the existing source directories and install state outside `Open/`.
-- Do not include BaoCut source, binaries, license, or the BaoCut-dependent
-  launcher in Open Slides. Do not relabel or replace BaoCut's license.
-- Build Open Slides from the independently licensed HTML deck authoring and
-  PPTX export materials already present in baoyu-design. Retain all upstream
-  and vendored notices. Describe the actual HTML/PPTX workflow; do not claim
-  BaoCut editor or Claude cloud parity.
-- Open Dashboard is the existing independent implementation; ship source,
-  examples, tests, and its license, not local caches or generated QA data.
-- Open Design includes the portable upstream skill with its MIT license and
-  its original third-party materials/notices intact.
-- Do not make remote repositories, public share links, or Codex Project
-  registrations. Produce local source directories and downloadable archives.
-- Use a local Markdown task ledger because this workspace has no configured
-  remote issue tracker and this is a personal project.
-
-## Acceptance
-
-1. `Open/` is a standalone Git repository on an integration branch, with a
-   root overview and the three named child projects.
-2. Each child can be used from its own directory after following its README;
-   no absolute paths into Jean's workspace are required.
-3. Each child preserves the license notices applicable to its contents; no
-   BaoCut Community License or BaoCut implementation is inside Open.
-4. Open Dashboard's existing 20 tests pass from the copied project.
-5. Open Design's existing 91 tests pass from the copied project.
-6. Open Slides' copied deck guidance and exporter build/test independently,
-   and a synthetic two-slide deck can be exported to PPTX with two slide parts.
-7. Each child can be packaged separately; archives include its README and
-   applicable license notices and exclude `.git`, caches, and generated QA data.
-8. The root documents what is and is not included. No external publication.
-
-## Known limits
-
-Open Slides is a portable HTML/PPTX workflow, not a clone of BaoCut's rich
-interactive editor. Fonts or remote image URLs can affect visual fidelity and
-require network access during authoring/capture. Native PowerPoint output must
-be checked in PowerPoint for exact animation compatibility.
+Checks: all child tests, standalone directory copies and isolated demo/test runs,
+install copies with license retention and no silent overwrite, real browser
+editing/save/PPTX download, desktop/mobile preview. Fonts and animations in
+PowerPoint itself remain a separate verification boundary.

@@ -1,4 +1,8 @@
-# Export a deck to PPTX
+# Optional automated CLI export
+
+This is the upstream headless automation/screenshot path. It is not needed
+to click Export PPTX in the Open Slides browser example. Read README.md first;
+do not install its Chromium dependency during ordinary setup.
 
 Build the bundled exporter once:
 

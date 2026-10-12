@@ -80,17 +80,6 @@ class ToolsTest(unittest.TestCase):
             path.write_text(page)
             self.assertIn('unknown source', '\n'.join(check.check(path)))
 
-    def test_package_contains_essential_resources_not_local_data_or_caches(self):
-        package = module('package')
-        from zipfile import ZipFile
-        with tempfile.TemporaryDirectory() as directory:
-            archive = package.package(directory)
-            names = ZipFile(archive).namelist()
-            self.assertIn('open-dashboard/SKILL.md', names)
-            self.assertIn('open-dashboard/assets/dash.js', names)
-            self.assertFalse(any('__pycache__' in name or '.dev/' in name or '/dist/' in name for name in names))
-            self.assertEqual(archive.read_bytes(), Path(directory, 'open-dashboard.skill').read_bytes())
-
     def test_static_source_binding_requires_exact_record_not_just_a_cosmetic_marker(self):
         check = module('check')
         page = '<span data-source="s" data-field="x">42</span><script id="dashboard-data" type="application/json">{"sources":{"s":{"csv":"x\\n1"}}}</script>'

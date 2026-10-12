@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Open Design — local example</title>
+<style>
+:root{font-family:Arial,sans-serif;color:#203b37;background:#f4f2ed;color-scheme:light}
+*{box-sizing:border-box}body{margin:0}main{max-width:760px;padding:72px 24px;margin:auto}
+h1{font-size:clamp(38px,7vw,64px);line-height:1.06;letter-spacing:-2px;font-weight:500}
+p{font-size:18px;line-height:1.7;max-width:600px;color:#50625e}
+label{display:block;font-size:16px;margin-top:28px}textarea{display:block;width:100%;min-height:130px;padding:16px;border:1px solid #bac2bc;border-radius:6px;font:16px/1.5 Arial,sans-serif;background:#fff;color:#203b37}
+button{font:16px Arial,sans-serif;padding:12px 18px;background:#203b37;color:#fff;border:0;border-radius:6px;cursor:pointer;margin-top:20px}
+[role=status]{font-size:15px;min-height:28px}small{font-size:14px;line-height:1.6}
+@media(max-width:500px){main{padding-top:40px}}
+</style>
+<main><small>OPEN DESIGN · INDEPENDENT LOCAL EXAMPLE</small>
+<h1>Start with a useful question.</h1><p>This is a tiny, offline design artifact. Ask your Agent to change its layout, typography or interaction using the included Open Design skill.</p>
+<label for="brief">Your design brief</label><textarea id="brief" placeholder="Who is it for, and what should they be able to do?"></textarea>
+<button id="save" type="button">Download brief</button><p role="status" aria-live="polite">This example does not call an AI service.</p>
+<small>The complete design workflow and tools are in SKILL.md and skills/baoyu-design/. This page only demonstrates a portable, editable artifact.</small>
+</main>
+<script>
+document.getElementById('save').addEventListener('click',()=>{
+  const brief=document.getElementById('brief').value.trim();
+  const status=document.querySelector('[role=status]');
+  if(!brief){status.textContent='Write a brief first.';return;}
+  const url=URL.createObjectURL(new Blob([brief],{type:'text/plain;charset=utf-8'}));
+  const link=document.createElement('a');link.href=url;link.download='design-brief.txt';link.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='Brief downloaded. Give it to your Agent to begin.';
+});
+</script>
+</html>

@@ -1,43 +1,52 @@
 # Verification log
 
-Run on 2026-10-12 from the Open checkout. These checks use the copied project
-directories, not the original sibling checkouts.
+Verified locally on 2026-10-12. These checks use Open's own source copies,
+not sibling repositories. Shareable delivery is the Git repository itself.
 
 | Project | Check | Result |
 | --- | --- | --- |
-| Open Dashboard | `node --test tests/runtime.test.cjs` | 11 passed |
-| Open Dashboard | `python3 -m unittest discover -s tests -p 'test_*.py'` | 9 passed |
-| Open Dashboard | Build the synthetic sample and run `scripts/check.py` | passed |
-| Open Design | `node --test skills/baoyu-design/agents/tests/*.test.mjs` | 91 passed |
-| Open Slides | `npm ci`, `npm run build`, `npm test` in `slides/skills/baoyu-design/agents/gen-pptx` | 67 passed |
-| Open suite | `python3 -m unittest discover -s tests -p 'test_package_projects.py'` | 4 passed |
+| Slides | `python3 run.py demo`, `python3 run.py test` | Build passed; 5 JavaScript and 3 Python tests passed |
+| Dashboard | `python3 run.py demo`, `python3 run.py test` | Sample build/check passed; 11 JavaScript and 11 Python tests passed |
+| Design | `python3 run.py demo`, `python3 run.py test` | Demo passed; 91 upstream JavaScript and 3 wrapper Python tests passed |
+| Repository | `python3 -m unittest discover -s tests` | 5 tests passed, including isolated directory copies/installers |
+| Source changes | `git diff --check` | Passed |
 
-## Real PPTX export
+## Browser export
 
-Built the exporter, served only the synthetic example directory on
-`127.0.0.1`, then ran:
+Opened the built Slides demo in the existing Codex in-app browser using the
+loopback URL printed by `run.py serve`. Edited the first title, clicked
+**Export PPTX**, and downloaded a two-slide PowerPoint file. The page reported
+"Exported 2 slides." Inspecting the file found exactly two slide XML parts;
+the first contains the edited title as native text with the intended color.
+No extra Chromium or headless browser was installed for this path.
 
-```sh
-node slides/skills/baoyu-design/agents/gen-pptx/dist/cli.mjs \
-  --url http://127.0.0.1:8765/two-slide.html \
-  --config slides/examples/two-slide-export.json \
-  --out /tmp/open-slides-smoke
-```
+**Save HTML** downloaded a self-contained file retaining the edited title and
+exporter. Reopening it and navigating between both slides worked. Preview was
+checked at desktop and 390 × 844 mobile width. The generated/downloaded QA
+artifacts are not committed.
 
-The CLI returned `ok: true`, `slides: 2`, and a 54,238-byte PPTX. Listing the
-PPTX ZIP entries found exactly two `ppt/slides/slideN.xml` parts. Its only
-validation notice was that the sample has no speaker notes, which is expected.
-The temporary preview server was stopped after the check.
+## Installation and sharing
 
-## Share archives
+Root tests copy each Skill to a temporary isolated directory, install it to a
+separate destination and verify license retention. Dashboard and Design demos
+also run from those installed copies. The separately installed Slides copy
+passed `npm ci --ignore-scripts`, demo build and all 8 tests with no parent
+checkout dependencies. Installers reject existing destinations and overlapping
+paths, and exclude dependencies, output, caches and secrets.
+English `README.md` and Chinese `README.zh-CN.md` have reciprocal language links
+at the root and in each Skill.
 
-`python3 scripts/package_projects.py` built `open-slides.zip`,
-`open-dashboard.zip`, and `open-design.zip`. All three passed `unzip -t`. The
-package tests confirm each archive has its own README/license and excludes
-BaoCut implementation/license material, `.git`, caches, and local QA data.
-ZIPs are generated deliverables under ignored `dist/`; regenerate them after
-cloning with the command above.
+The obsolete delivery packagers and their tests were removed. No release
+archives are generated or committed. Third-party licenses remain intact.
 
-`npm ci` reported one moderate advisory in the Slides export dependency tree.
-No automatic dependency upgrade was applied; review current npm audit details
-before using the exporter in a higher-risk environment.
+## Verification boundaries
+
+PPTX structure and native text were verified; rendering/animation/font fidelity
+inside PowerPoint or Keynote and the operating system print dialog were not.
+Optional headless/screenshot export is not part of ordinary installation and
+was not revalidated for this browser change. Tests for upstream Design tools
+do not prove access to external model, image, Figma or video services.
+
+GitHub Actions is configured to run child demos/tests and standalone source
+checks. Remote publication and CI results must be read back from GitHub before
+claiming them successful.

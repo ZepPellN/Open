@@ -1,48 +1,66 @@
 # Open Slides
 
-Open Slides is a local HTML slide-authoring workflow with editable and
-pixel-perfect screenshot PPTX export. It uses the MIT-licensed deck guidance
-and exporter included here; it does **not** include BaoCut code or its license,
-and is not a clone of BaoCut's interactive editor or a cloud Slides service.
+English | [简体中文](README.zh-CN.md)
 
-## Install the skill
+Open a presentation in your own browser, edit text, save a standalone HTML,
+click **Export PPTX** for editable PowerPoint, or **Print / PDF** for PDF.
+The normal export happens in your current browser: no extra Chromium or cloud
+service is needed.
 
-Copy this project directory into your agent's skills folder as `open-slides`.
-For Codex:
+## Install, demo and test
 
-```sh
-mkdir -p ~/.agents/skills/open-slides/skills/baoyu-design ~/.agents/skills/open-slides/references ~/.agents/skills/open-slides/examples ~/.agents/skills/open-slides/licenses
-cp SKILL.md README.md LICENSE THIRD_PARTY_NOTICES.md ~/.agents/skills/open-slides/
-cp references/export-pptx.md ~/.agents/skills/open-slides/references/
-cp examples/two-slide.html examples/two-slide-export.json ~/.agents/skills/open-slides/examples/
-cp licenses/baoyu-design-MIT.txt licenses/pptxgenjs-LICENSE.txt ~/.agents/skills/open-slides/licenses/
-rsync -a --exclude='node_modules/' --exclude='dist/' skills/baoyu-design/ ~/.agents/skills/open-slides/skills/baoyu-design/
-```
-
-Reload the agent, then ask it to create a deck. The skill entry point is
-[`SKILL.md`](SKILL.md); it guides the agent through authoring a navigable HTML
-deck using the included deck-stage component.
-
-## Build the PowerPoint exporter
-
-Requirements: Node.js 18 or newer, npm, and Playwright's Chromium browser.
+From this directory (Python 3.9+, Node.js 18+):
 
 ```sh
-cd slides/skills/baoyu-design/agents/gen-pptx
-npm ci
-npx playwright install chromium
-npm run build
-npm test
+python3 install.py                 # optional: install the Agent skill
+npm ci                            # JSZip and build tools only; no browser
+python3 run.py demo
+python3 run.py serve --open
+python3 run.py test
 ```
 
-The editable PPTX exporter reads a deck served from loopback and writes the
-result to an output directory. Follow [`references/export-pptx.md`](references/export-pptx.md)
-for a two-slide example and JSON configuration. Screenshot export is also
-available, but produces non-editable image slides.
+From the parent repository, first `cd slides`. A separately copied directory
+works the same way. For another Agent:
+`python3 install.py --destination /path/to/open-slides`.
+Existing installs are not overwritten. Alternatively, ask your Agent to read
+[AGENTS.md](AGENTS.md) and [SKILL.md](SKILL.md) directly.
 
-## License and provenance
+## Author and open a deck
 
-The Open Slides wrapper and original example are MIT; see [LICENSE](LICENSE).
-The bundled deck workflow and exporter originate from baoyu-design and retain
-its MIT license in `licenses/baoyu-design-MIT.txt`. The vendored PptxGenJS
-source retains its own license. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Use the static `<deck-stage>` / `<section>` structure and controls in
+`examples/browser-deck.html`. The Agent authors that template; the Open browser
+export adapter lives in `src/`. The complete MIT upstream stage, capture,
+rendering and animation source is under `skills/baoyu-design/`.
+
+The builder combines the template and runtime into `dist/index.html`, a
+standalone file that can be opened offline in a modern browser. For Agent
+preview, keep `python3 run.py serve` running and open the printed URL.
+
+**Save HTML** downloads the current text and export code. Browser edits do not
+silently overwrite the source file. After source edits, rerun the demo build.
+`examples/two-slide.html` remains for the optional CLI compatibility check.
+
+## Scope and limitations
+
+This is a local HTML deck and browser export tool, not the complete Claude
+Slides cloud editor. It supports text editing, navigation and download, but not
+cloud collaboration, server-side saving or arbitrary element drag-layout.
+
+Editable PPTX approximates HTML with native text, shapes, images and supported
+animations; arbitrary HTML is not pixel-perfect. Embed fonts/images where
+possible. Cross-origin images without CORS permission can fail to export;
+inspect warnings. Final fonts, layout and animations should be checked in
+PowerPoint or Keynote.
+
+Only when automated batch capture or screenshot PPTX is explicitly needed,
+use the [optional CLI](references/export-pptx.md). That separate upstream path
+requires Playwright and its browser; ordinary installation does not enable it.
+
+## Source and licenses
+
+Open's adapter, entry points and example use [MIT](LICENSE). The upstream
+baoyu-design material by Jim Liu 宝玉 retains `licenses/baoyu-design-MIT.txt`.
+Vendored PptxGenJS source, patch notes and license remain intact. JSZip's full
+license is in `licenses/jszip-LICENSE.markdown`; bundled dependency notices are
+also retained. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+No BaoCut source is included.

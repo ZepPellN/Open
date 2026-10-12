@@ -1,5 +1,10 @@
 # Third-party notices
 
+The browser adapter in `src/` reuses the unmodified MIT DOM capture, rendering,
+media and animation modules below. Direct download uses PptxGenJS in the
+current browser, not the optional Playwright driver. JSZip and its bundled
+dependencies retain full notices under `licenses/`.
+
 - The copied deck authoring/export materials are from Jim Liu's
   [baoyu-design](https://github.com/JimLiu/baoyu-design), under MIT. The
   complete license is retained at `licenses/baoyu-design-MIT.txt`.

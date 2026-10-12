@@ -3,7 +3,7 @@ name: open-dashboard
 description: Build local interactive data dashboards from CSV, spreadsheets or analysis outputs, with traceable numbers, filters, light/dark charts, sortable tables and a single offline HTML. Use for 数据看板, Dashboard, 数据分析可视化, or requests to follow a portable dashboard workflow. Independently implemented; not recovered Claude code.
 ---
 
-# Data Dashboard
+# Open Dashboard
 
 Create a useful analytical report, not a decorative collection of charts.
 Use the bundled zero-dependency runtime; deliver an HTML containing its data,
@@ -27,7 +27,7 @@ CSS and JS. Treat this folder as `SKILL_ROOT`, wherever it is installed.
    business number using `data-calc`; use `data-chart` for charts/tables.
    Include Sources and limitations. Convert spreadsheet inputs to CSV locally;
    do not claim this runtime reads XLSX directly.
-4. **Inspect and package.** Build and check:
+4. **Inspect.** Build and check:
    ```sh
    python3 "$SKILL_ROOT/scripts/build.py" page.html dashboard.json dashboard.html
    python3 "$SKILL_ROOT/scripts/check.py" dashboard.html
